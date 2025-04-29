@@ -23,7 +23,7 @@ namespace Repositories
                 
         }
 
-        public void UpdateOneProduct(Product entity) => UpdateOneProduct(entity);
+        public void UpdateOneProduct(Product entity) => Update(entity);
        
     }
 }

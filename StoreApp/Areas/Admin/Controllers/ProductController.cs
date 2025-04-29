@@ -69,16 +69,22 @@ namespace StoreApp.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update([FromForm] ProductDtoForUpdate productDto, IFormFile file)
         {
-            if (ModelState.IsValid)
-            {
-                // file operation
-                string path = Path.Combine(Directory.GetCurrentDirectory(),
-                "wwwroot","images",file.FileName);
-
-                using (var stream = new FileStream(path,FileMode.Create))
+            string fileExtension = Path.GetExtension(file.FileName);
+            string fileName = Guid.NewGuid().ToString().Replace("-", "ab") + fileExtension;
+             // file operation
+            string path = Path.Combine(Directory.GetCurrentDirectory(),
+                "wwwroot","images", file.FileName);
+         if(file is not null)
+         {
+             using (var stream = new FileStream(path,FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
                 }
+            
+         }
+            if (ModelState.IsValid)
+            {
+               
                 productDto.ImageUrl = String.Concat("/images/",file.FileName);
 
                 _manager.ProductService.UpdateOneProduct(productDto);

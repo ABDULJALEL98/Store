@@ -59,13 +59,13 @@ namespace Services
 
         public void UpdateOneProduct(ProductDtoForUpdate productDto)
         {
-           var entity = _manager.Product.GetOneProduct(productDto.ProductId, true);
-            entity.ProductName = productDto.ProductName;
-            entity.Price = productDto.Price;
-          entity.CategoryId = productDto.CategoryId; 
-          entity.Summary = productDto.Summary;
-          entity.ImageUrl = productDto.ImageUrl;
-          // var entity = _mapper.Map<Product>(productDto);
+           //var entity = _manager.Product.GetOneProduct(productDto.ProductId, true);
+            //entity.ProductName = productDto.ProductName;
+           // entity.Price = productDto.Price;
+          //entity.CategoryId = productDto.CategoryId; 
+          //entity.Summary = productDto.Summary;
+          //entity.ImageUrl = productDto.ImageUrl;
+           var entity = _mapper.Map<Product>(productDto);
             _manager.Product.UpdateOneProduct(entity);
             _manager.Save();
           
