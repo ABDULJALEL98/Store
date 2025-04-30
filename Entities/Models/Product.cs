@@ -14,4 +14,5 @@ public class Product
 
     public int? CategoryId { get; set; } // Foreign key for Category
     public Category? Category { get; set; } // Navigation property for Category
+    public bool ShowCase { get; set; } 
 }
