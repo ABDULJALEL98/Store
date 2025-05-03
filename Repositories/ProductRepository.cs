@@ -10,7 +10,7 @@ namespace Repositories
     {
         public ProductRepository(RepositoryContext context) : base(context)
         {
-            
+
         }
 
         public void CreateOneProduct(Product product) => Create(product);
@@ -25,14 +25,15 @@ namespace Repositories
             return _context
             .Products
             .FilteredByCategoryId(p.CategoryId)
-            .FilteredBySearchTerm(p.SearchTerm);
+            .FilteredBySearchTerm(p.SearchTerm)
+            .FilteredByPrice(p.MinPrice, p.MaxPrice, p.IsValidPrice);
         }
 
         //Interface 
         public Product? GetOneProduct(int id, bool trackChanges)
-       {
-            return FindByCondition(P=> P.ProductId.Equals(id), trackChanges);
-                
+        {
+            return FindByCondition(P => P.ProductId.Equals(id), trackChanges);
+
         }
 
         public IQueryable<Product> GetShowcaseProducts(bool trackChanges)
@@ -42,6 +43,6 @@ namespace Repositories
         }
 
         public void UpdateOneProduct(Product entity) => Update(entity);
-       
+
     }
 }
