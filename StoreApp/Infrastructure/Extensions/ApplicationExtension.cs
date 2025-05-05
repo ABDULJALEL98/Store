@@ -5,10 +5,10 @@ namespace StoreApp.Infrastructure.Extensions
 {
     public static class ApplicationExtension
     {
-        public static void ConfigureAndCheckMigration(this IApplicationBuilder app)
+         public static void ConfigureAndCheckMigration(this IApplicationBuilder app)
         {
-              RepositoryContext context = app
-               .ApplicationServices
+            RepositoryContext context = app
+                .ApplicationServices
                 .CreateScope()
                 .ServiceProvider
                 .GetRequiredService<RepositoryContext>();
@@ -17,7 +17,6 @@ namespace StoreApp.Infrastructure.Extensions
             {
                 context.Database.Migrate();
             }
-           
         }
 
 
