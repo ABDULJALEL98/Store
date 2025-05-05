@@ -17,9 +17,9 @@ namespace StoreApp.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0a8b26a8-9be7-45a2-a9cf-ab783a954392", null, "Editor", "EDITOR" },
-                    { "596e30e3-ded6-4d3b-96cd-a49327b6f295", null, "Admin", "ADMIN" },
-                    { "d70f3f17-da73-4f65-93a1-deab68c23c86", null, "User", "USER" }
+                    { "0a8b26a8-9be7-45a2-a9cf-ab783a954392", null, "User", "USER" },
+                    { "596e30e3-ded6-4d3b-96cd-a49327b6f295", null, "Editor", "EDITOR" },
+                    { "d70f3f17-da73-4f65-93a1-deab68c23c86", null, "Admin", "ADMIN" }
                 });
         }
 
