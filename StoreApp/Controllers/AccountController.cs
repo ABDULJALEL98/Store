@@ -9,37 +9,45 @@ namespace StoreApp.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
 
-        public AccountController(UserManager<IdentityUser> userManager, 
-        SignInManager<IdentityUser> signInManager )
+        public AccountController(UserManager<IdentityUser> userManager,
+        SignInManager<IdentityUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        public IActionResult Login()
+        public IActionResult Login([FromQuery(Name ="ReturnUrl")] string ReturnUrl="/")
         {
-            return View();
+               return View(new LoginModel()
+            {
+                ReturnUrl = ReturnUrl
+            });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-          public async Task<IActionResult> Login([FromForm] LoginModel model)
+        public async Task<IActionResult> Login([FromForm] LoginModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 IdentityUser user = await _userManager.FindByNameAsync(model.Name);
-                if(user is not null)
+                if (user is not null)
                 {
-                     await _signInManager.SignOutAsync();
-                     if((await _signInManager.PasswordSignInAsync(user, model.Password,false,false)).Succeeded)
-                     {
-                         return Redirect(model?.ReturnUrl ?? "/");
-                     }
+                    await _signInManager.SignOutAsync();
+                    if ((await _signInManager.PasswordSignInAsync(user, model.Password, false, false)).Succeeded)
+                    {
+                        return Redirect(model?.ReturnUrl ?? "/");
+                    }
                 }
-                ModelState.AddModelError("Error","Invalid username or password.");
+                ModelState.AddModelError("Error", "Invalid username or password.");
             }
             return View();
         }
-       
+
+        public async Task<IActionResult> Logout([FromQuery(Name = "ReturnUrl")] string ReturnUrl = "/")
+        {
+            await _signInManager.SignOutAsync();
+            return Redirect(ReturnUrl);
+        }
 
 
 
@@ -47,11 +55,12 @@ namespace StoreApp.Controllers
 
 
 
-        
+
+
     }
 
 
 
 
-    
+
 }
